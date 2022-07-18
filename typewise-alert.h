@@ -1,5 +1,15 @@
 #pragma once
 
+#define PASSIVE_COOLING_LOW_LIMIT		0
+#define PASSIVE_COOLING_HIGH_LIMIT		35
+#define HI_ACTIVE_COOLING_LOW_LIMIT		0
+#define HI_ACTIVE_COOLING_HIGH_LIMIT	45
+#define MED_ACTIVE_COOLING_LOW_LIMIT	0
+#define MED_ACTIVE_COOLING_HIGH_LIMIT	40
+
+#define SUCCESS							1
+#define FAIL							0
+
 typedef enum {
   PASSIVE_COOLING,
   HI_ACTIVE_COOLING,
@@ -12,9 +22,6 @@ typedef enum {
   TOO_HIGH
 } BreachType;
 
-BreachType inferBreach(double value, double lowerLimit, double upperLimit);
-BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
-
 typedef enum {
   TO_CONTROLLER,
   TO_EMAIL
@@ -25,8 +32,14 @@ typedef struct {
   char brand[48];
 } BatteryCharacter;
 
-void checkAndAlert(
-  AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+typedef struct {
+  double lowerLimit;
+  double upperLimit;
+} TemperatureLimit;
 
-void sendToController(BreachType breachType);
-void sendToEmail(BreachType breachType);
+TemperatureLimit determineTempLimits(CoolingType coolingType);
+BreachType inferBreach(double value, double lowerLimit, double upperLimit);
+BreachType classifyTemperatureBreach(CoolingType coolingType, double temperatureInC);
+int checkAndAlert(AlertTarget alertTarget, BatteryCharacter batteryChar, double temperatureInC);
+int sendToController(BreachType breachType);
+int sendToEmail(BreachType breachType);
