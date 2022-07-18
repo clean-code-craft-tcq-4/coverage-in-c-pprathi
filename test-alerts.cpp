@@ -14,13 +14,16 @@ TEST_CASE("determines the temperature limits based on the coolingType") {
   
   //Test Lower & Upper Limits of Passive Cooling Type
   tempLimit = determineTempLimits(PASSIVE_COOLING);
-  REQUIRE((tempLimit.lowerLimit == PASSIVE_COOLING_LOW_LIMIT) && (tempLimit.upperLimit == PASSIVE_COOLING_HIGH_LIMIT));
+  REQUIRE(tempLimit.lowerLimit == PASSIVE_COOLING_LOW_LIMIT);
+  REQUIRE(tempLimit.upperLimit == PASSIVE_COOLING_HIGH_LIMIT);
   //Test Lower & Upper Limits of Hi_Active Cooling Type
   tempLimit = determineTempLimits(HI_ACTIVE_COOLING);
-  REQUIRE((tempLimit.lowerLimit == HI_ACTIVE_COOLING_LOW_LIMIT) && (tempLimit.upperLimit == HI_ACTIVE_COOLING_HIGH_LIMIT));
+  REQUIRE(tempLimit.lowerLimit == HI_ACTIVE_COOLING_LOW_LIMIT);
+  REQUIRE(tempLimit.upperLimit == HI_ACTIVE_COOLING_HIGH_LIMIT);
   //Test Lower & Upper Limits of Med_Active Cooling Type
   tempLimit = determineTempLimits(MED_ACTIVE_COOLING);
-  REQUIRE((tempLimit.lowerLimit == MED_ACTIVE_COOLING_LOW_LIMIT) && (tempLimit.upperLimit == MED_ACTIVE_COOLING_HIGH_LIMIT));
+  REQUIRE(tempLimit.lowerLimit == MED_ACTIVE_COOLING_LOW_LIMIT);
+  REQUIRE(tempLimit.upperLimit == MED_ACTIVE_COOLING_HIGH_LIMIT);
 }
 
 TEST_CASE("Alert for Too low & Too High temp via Email") {
